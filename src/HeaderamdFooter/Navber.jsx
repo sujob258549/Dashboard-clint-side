@@ -1,12 +1,13 @@
 import { useState } from "react";
 import shopinglogo from '../assets/image/logo/logo2.webp'
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import './nav.css'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navLink = <>
     
-    <NavLink>Home</NavLink>
+    <NavLink to={'/'}>Home</NavLink>
     <NavLink>About</NavLink>
     <NavLink>Contact</NavLink>
     </>
@@ -46,7 +47,7 @@ const Navbar = () => {
                         className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out text-black lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${isOpen ? 'translate-x-0 opacity-100' : 'opacity-0 -translate-x-full'
                             }`}
                     >
-                        <div className="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
+                        <div className="flex flex-col menu -mx-6 lg:flex-row lg:items-center lg:mx-8">
                            {
                             navLink
                            }
@@ -76,9 +77,9 @@ const Navbar = () => {
                                         alt="avatar"
                                     />
                                 </div>
-                                <button  className="ml-2 py-2.5 px-6 rounded-lg text-sm font-medium text-white bg-teal-600">
+                                <Link to={'/login'}  className="ml-2 py-2.5 px-6 rounded-lg text-sm font-medium text-white bg-teal-600">
                                     Login
-                                </button>
+                                </Link>
                                 <h3 className="mx-2   lg:hidden">Khatab wedaa</h3>
                             </button>
                         </div>
