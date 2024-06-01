@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import logopng from '../assets/image/register/logopng register.png'
+import './loginandregister.css'
 
 
 const Signup = () => {
     const [showpassword , setShowpassword] = useState()
     return (
-        <div>
-            <section className="bg-white" >
-                <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-                    <form className="w-full max-w-md p-5 rounded-md" style={{boxShadow:"1px 1px 10px"}}>
+        <div className="">
+            <section className="background-register" >
+                <div className="container flex items-center justify-center">
+                    <form className="w-full mx-5 md:mx-auto bg-[#ffffffb0] max-w-md p-5 my-5 md:my-10 rounded-md" style={{boxShadow:"1px 1px 10px"}}>
                         <div className="flex justify-center mx-auto">
-                            <img className="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt=""/>
+                            <img className="h-24" src={logopng} alt=""/>
                         </div>
 
                         <div className="flex items-center justify-center mt-6">
@@ -24,7 +26,7 @@ const Signup = () => {
                             </a>
                         </div>
 
-                        <div className="relative flex items-center mt-8">
+                        <div className="relative flex items-center">
                             <span className="absolute">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />

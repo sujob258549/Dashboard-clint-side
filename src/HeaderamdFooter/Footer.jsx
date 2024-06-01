@@ -4,7 +4,7 @@ import logo from '../assets/image/logo/logo2.webp'
 
 const Footer = () => {
     return (
-        <div className="mt-8 bg-violet-500 pt-9">
+        <div className="bg-violet-500 pt-9">
             <div className="mx-auto w-full container px-4 xl:px-0">
                 <div className="flex flex-col justify-between sm:px-[18px] md:flex-row md:px-10">
                     <div className="md:w-[316px]">

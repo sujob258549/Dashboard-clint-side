@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 
 const Login = () => {
-    const [showpassword , setShowpassword] = useState()
+    const [showpassword, setShowpassword] = useState()
     return (
         <section className="bg-gray-100 py-10 md:py-20 md:min-h-screen flex box-border justify-center items-center">
             <div className="bg-[#dfa674] rounded-2xl flex max-w-3xl p-5 items-center">
@@ -12,32 +12,34 @@ const Login = () => {
                     <h2 className="font-bold text-3xl text-[#002D74]">Login</h2>
                     <p className="text-sm mt-4 text-[#002D74]">If you already a member, easily log in now.</p>
 
-                    <form action="" className="flex flex-col gap-4">
-                        <input className="p-2 mt-8 rounded-xl border" type="email" name="email" placeholder="Email" />
-                        <div className="relative">
-                            <input className="p-2 rounded-xl border w-full" type={showpassword ? 'text' : 'password'} name="password" id="password" placeholder="Password" />
-                            <div className="absolute right-5 bottom-3" onClick={() => setShowpassword(!showpassword)}>
-                                {
-                                    showpassword ? <FaEyeSlash className="text-xl"></FaEyeSlash> : <FaEye className="text-xl"></FaEye>
-                                }
+                    <div className="mx-5 md:mx-0">
+                        <form action="" className="flex flex-col gap-4 ">
+                            <input className="p-2 mt-8 rounded-xl border" type="email" name="email" placeholder="Email" />
+                            <div className="relative">
+                                <input className="p-2 rounded-xl border w-full" type={showpassword ? 'text' : 'password'} name="password" id="password" placeholder="Password" />
+                                <div className="absolute right-5 bottom-3" onClick={() => setShowpassword(!showpassword)}>
+                                    {
+                                        showpassword ? <FaEyeSlash className="text-xl"></FaEyeSlash> : <FaEye className="text-xl"></FaEye>
+                                    }
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    className="bi bi-eye-slash-fill absolute top-1/2 right-3 -z-1 -translate-y-1/2 cursor-pointer hidden"
+                                    id="mama" viewBox="0 0 16 16">
+                                    <path
+                                        d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z">
+                                    </path>
+                                    <path
+                                        d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z">
+                                    </path>
+                                </svg>
                             </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                className="bi bi-eye-slash-fill absolute top-1/2 right-3 -z-1 -translate-y-1/2 cursor-pointer hidden"
-                                id="mama" viewBox="0 0 16 16">
-                                <path
-                                    d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z">
-                                </path>
-                                <path
-                                    d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z">
-                                </path>
-                            </svg>
-                        </div>
-                        <button className="bg-[#002D74] text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-[#206ab1] font-medium" type="submit">Login</button>
-                    </form>
+                            <button className="bg-[#002D74] text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-[#206ab1] font-medium" type="submit">Login</button>
+                        </form>
+                    </div>
                     <div className="mt-6  items-center text-gray-100">
                         <hr className="border-gray-300" />
                         <p className="text-center text-sm">OR</p>
-                        <hr className="border-gray-300"/>
+                        <hr className="border-gray-300" />
                     </div>
                     <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-[#60a8bc4f] font-medium">
                         <svg className="mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="25px">
