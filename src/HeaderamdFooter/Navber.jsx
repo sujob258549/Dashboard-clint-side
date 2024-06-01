@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import shopinglogo from '../assets/image/logo/logo2.webp'
 import { Link, NavLink } from "react-router-dom";
 import './nav.css'
+import { CreatAuthContext } from "../Firebase/Authprovider";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navLink = <>
-    
-    <NavLink to={'/'}>Home</NavLink>
-    <NavLink>About</NavLink>
-    <NavLink>Contact</NavLink>
+
+        <NavLink to={'/'}>Home</NavLink>
+        <NavLink>About</NavLink>
+        <NavLink>Contact</NavLink>
     </>
 
+    const { user, signout } = useContext(CreatAuthContext)
+    const handelLogout = () => {
+        signout()
+    }
     return (
         <nav className="relative bg-white shadow">
             <div className="container px-6 py-4 mx-auto">
@@ -48,9 +53,9 @@ const Navbar = () => {
                             }`}
                     >
                         <div className="flex flex-col menu -mx-6 lg:flex-row lg:items-center lg:mx-8">
-                           {
-                            navLink
-                           }
+                            {
+                                navLink
+                            }
                         </div>
 
                         <div className="flex items-center mt-4 lg:mt-0">
@@ -69,20 +74,34 @@ const Navbar = () => {
                                 </svg>
                             </button>
 
-                            <button type="button" className="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
-                                <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-                                        className="object-cover w-full h-full"
-                                        alt="avatar"
-                                    />
+                            <div className="dropdown dropdown-end">
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-10 rounded-full">
+                                        {
+                                            user?.photoURL ? <img
+                                            src={user.photoURL}
+                                            className="object-cover w-full h-full"
+                                            alt="avatar"
+                                        />: ''
+                                        }
+                                    </div>
                                 </div>
-                                <Link to={'/login'}  className="ml-2 py-2.5 px-6 rounded-lg text-sm font-medium text-white bg-teal-600">
-                                    Login
-                                </Link>
-                                <h3 className="mx-2   lg:hidden">Khatab wedaa</h3>
-                            </button>
+                                <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                    <li>
+                                        <a className="justify-between">
+                                            Profile
+                                        </a>
+                                    </li>
+                                    <li><a>Settings</a></li>
+                                    <li><button onClick={handelLogout}>Logout</button></li>
+                                </ul>
+                            </div>
                         </div>
+                        {
+                            user ? '' : <Link to={'/login'} className="ml-2 py-2.5 px-6 rounded-lg text-sm font-medium text-white bg-teal-600">
+                                Login
+                            </Link>
+                        }
                     </div>
                 </div>
             </div>

@@ -1,17 +1,58 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logopng from '../assets/image/register/logopng register.png'
 import './loginandregister.css'
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Signup = () => {
+    const navigete = useNavigate()
     const [showpassword , setShowpassword] = useState()
+    const handelRegister = e => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const photourl = e.target.photourl.value;
+        const email = e.target.email.value;
+        const password = e.target.passwird.value;
+        const conframpassword = e.target.conframpassword.value;
+        const users = { name, photourl, email, password, conframpassword };
+        console.log(users);
+        if (password.length < 6) {
+            toast.error('password enter 6 carector or  a longer!! ');
+            return;
+        }
+        if (password !== conframpassword) {
+            return toast.error('password and confam password No carect!!')
+        }
+        else if (!/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(password)) {
+            toast.error('Please use a stronger password.');
+            return;
+        }
+        creatUser(email, password)
+            .then(result => {
+                upadateprofile(name, photourl)
+                setuser({ ...user, photoURL: photourl, displayName: name })
+                console.log(result)
+                Swal.fire({
+                    icon: "success",
+                    title: "Success...",
+                    text: "Creat a User!",
+                    footer: '<a href="#">Creat User?</a>'
+                });
+                navigete('/login')
+            })
+            .catch(error => {
+                console.error(error.message)
+            })
+
+    }
     return (
         <div className="">
             <section className="background-register" >
                 <div className="container flex items-center justify-center">
-                    <form className="w-full mx-5 md:mx-auto bg-[#ffffffb0] max-w-md p-5 my-5 md:my-10 rounded-md" style={{boxShadow:"1px 1px 10px"}}>
+                    <form onSubmit={handelRegister} className="w-full mx-5 md:mx-auto bg-[#ffffffb0] max-w-md p-5 my-5 md:my-10 rounded-md" style={{boxShadow:"1px 1px 10px"}}>
                         <div className="flex justify-center mx-auto">
                             <img className="h-24" src={logopng} alt=""/>
                         </div>
@@ -33,7 +74,7 @@ const Signup = () => {
                                 </svg>
                             </span>
 
-                            <input type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username"/>
+                            <input name="name" type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username"/>
                         </div>
 
                         <label for="dropzone-file" className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 ">
@@ -43,7 +84,7 @@ const Signup = () => {
 
                             <h2 className="mx-3 text-gray-400">Profile Photo</h2>
 
-                            <input id="dropzone-file" type="file" className="hidden" />
+                            <input name="photo" id="dropzone-file" type="file" className="hidden" />
                         </label>
 
                         <div className="relative flex items-center mt-6">
@@ -53,7 +94,7 @@ const Signup = () => {
                                 </svg>
                             </span>
 
-                            <input type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address"/>
+                            <input name="email" type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address"/>
                         </div>
 
                         <div className="relative flex items-center mt-4">
@@ -63,7 +104,7 @@ const Signup = () => {
                                 </svg>
                             </span>
 
-                            <input  type={showpassword ? 'text' : 'password'}  className="block w-full px-10 py-3  bg-white border rounded-lgdark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password"/>
+                            <input name="password" type={showpassword ? 'text' : 'password'}  className="block w-full px-10 py-3  bg-white border rounded-lgdark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password"/>
                             <div className="absolute right-5 bottom-3" onClick={() => setShowpassword(!showpassword)}>
                                 {
                                     showpassword ? <FaEyeSlash className="text-xl"></FaEyeSlash> : <FaEye className="text-xl"></FaEye>
@@ -78,7 +119,7 @@ const Signup = () => {
                                 </svg>
                             </span>
 
-                            <input  type={showpassword ? 'text' : 'password'}  className="block w-full px-10 py-3  bg-white border rounded-lg  dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Confirm Password"/>
+                            <input name="cpassword" type={showpassword ? 'text' : 'password'}  className="block w-full px-10 py-3  bg-white border rounded-lg  dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Confirm Password"/>
                             <div className="absolute right-5 bottom-3" onClick={() => setShowpassword(!showpassword)}>
                                 {
                                     showpassword ? <FaEyeSlash className="text-xl"></FaEyeSlash> : <FaEye className="text-xl"></FaEye>
@@ -100,6 +141,7 @@ const Signup = () => {
                     </form>
                 </div>
             </section>
+            <ToastContainer />
         </div>
     );
 };
