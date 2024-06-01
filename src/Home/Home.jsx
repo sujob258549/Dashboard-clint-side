@@ -1,9 +1,11 @@
+import Bannersection from "./Bannersection";
 
 
 const Home = () => {
     return (
-        <div>
-            {/* <h2 className="text-9xl font-bold ">home</h2> */}
+        <div className="container mx-auto px-5">
+           {/* bannersection */}
+           <Bannersection></Bannersection>
         </div>
     );
 };

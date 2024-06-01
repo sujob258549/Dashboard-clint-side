@@ -35,13 +35,69 @@ const Navbar = () => {
                                 aria-label="toggle menu"
                             >
                                 {!isOpen ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
-                                    </svg>
+                                    <>
+                                        <div className="flex gap-1 items-center">
+                                            {
+                                                user && <div className="dropdown dropdown-end">
+                                                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                                        <div className="w-10 rounded-full">
+                                                            {
+                                                                user?.photoURL && <img
+                                                                    src={user.photoURL}
+                                                                    className="object-cover w-full h-full"
+                                                                    alt="avatar"
+                                                                />
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <ul tabIndex={0} className="menu ml-10 lg:ml-0 menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                                        <li>
+                                                            <a className="justify-between">
+                                                                Profile
+                                                            </a>
+                                                        </li>
+                                                        <li><a>Settings</a></li>
+                                                        <li><button onClick={handelLogout}>Logout</button></li>
+                                                    </ul>
+                                                </div>
+                                            }
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
+                                            </svg>
+
+                                        </div>
+                                    </>
                                 ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
+                                    <div className="flex gap-1 items-center">
+                                        {
+                                            user && <div className="dropdown dropdown-end">
+                                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                                    <div className="w-10 rounded-full">
+                                                        {
+                                                            user?.photoURL && <img
+                                                                src={user.photoURL}
+                                                                className="object-cover w-full h-full"
+                                                                alt="avatar"
+                                                            />
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <ul tabIndex={0} className="menu ml-10 lg:ml-0 menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                                    <li>
+                                                        <a className="justify-between">
+                                                            Profile
+                                                        </a>
+                                                    </li>
+                                                    <li><a>Settings</a></li>
+                                                    <li><button onClick={handelLogout}>Logout</button></li>
+                                                </ul>
+                                            </div>
+                                        }
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+
+                                    </div>
                                 )}
                             </button>
                         </div>
@@ -74,28 +130,30 @@ const Navbar = () => {
                                 </svg>
                             </button>
 
-                            <div className="dropdown dropdown-end">
-                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                    <div className="w-10 rounded-full">
-                                        {
-                                            user?.photoURL ? <img
-                                            src={user.photoURL}
-                                            className="object-cover w-full h-full"
-                                            alt="avatar"
-                                        />: ''
-                                        }
+                            {
+                                user && <div className="dropdown dropdown-end hidden md:block">
+                                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                        <div className="w-10 rounded-full">
+                                            {
+                                                user?.photoURL && <img
+                                                    src={user.photoURL}
+                                                    className="object-cover w-full h-full"
+                                                    alt="avatar"
+                                                />
+                                            }
+                                        </div>
                                     </div>
+                                    <ul tabIndex={0} className="menu ml-10 lg:ml-0 menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li>
+                                            <a className="justify-between">
+                                                Profile
+                                            </a>
+                                        </li>
+                                        <li><a>Settings</a></li>
+                                        <li><button onClick={handelLogout}>Logout</button></li>
+                                    </ul>
                                 </div>
-                                <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                    <li>
-                                        <a className="justify-between">
-                                            Profile
-                                        </a>
-                                    </li>
-                                    <li><a>Settings</a></li>
-                                    <li><button onClick={handelLogout}>Logout</button></li>
-                                </ul>
-                            </div>
+                            }
                         </div>
                         {
                             user ? '' : <Link to={'/login'} className="ml-2 py-2.5 px-6 rounded-lg text-sm font-medium text-white bg-teal-600">
