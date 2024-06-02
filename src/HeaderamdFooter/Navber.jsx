@@ -3,6 +3,8 @@ import shopinglogo from '../assets/image/logo/logo2.webp'
 import { Link, NavLink } from "react-router-dom";
 import './nav.css'
 import { CreatAuthContext } from "../Firebase/Authprovider";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IoMdClose } from "react-icons/io";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -37,69 +39,42 @@ const Navbar = () => {
                                 {!isOpen ? (
                                     <>
                                         <div className="flex gap-1 items-center">
-                                            {
-                                                user && <div className="dropdown dropdown-end">
-                                                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                                        <div className="w-10 rounded-full">
-                                                            {
-                                                                user?.photoURL && <img
-                                                                    src={user.photoURL}
-                                                                    className="object-cover w-full h-full"
-                                                                    alt="avatar"
-                                                                />
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                    <ul tabIndex={0} className="menu ml-10 lg:ml-0 menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                                        <li>
-                                                            <a className="justify-between">
-                                                                Profile
-                                                            </a>
-                                                        </li>
-                                                        <li><a>Settings</a></li>
-                                                        <li><button onClick={handelLogout}>Logout</button></li>
-                                                    </ul>
-                                                </div>
-                                            }
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
-                                            </svg>
 
+                                            <GiHamburgerMenu className="text-3xl"></GiHamburgerMenu>
                                         </div>
                                     </>
                                 ) : (
                                     <div className="flex gap-1 items-center">
-                                        {
-                                            user && <div className="dropdown dropdown-end">
-                                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                                    <div className="w-10 rounded-full">
-                                                        {
-                                                            user?.photoURL && <img
-                                                                src={user.photoURL}
-                                                                className="object-cover w-full h-full"
-                                                                alt="avatar"
-                                                            />
-                                                        }
-                                                    </div>
-                                                </div>
-                                                <ul tabIndex={0} className="menu ml-10 lg:ml-0 menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                                    <li>
-                                                        <a className="justify-between">
-                                                            Profile
-                                                        </a>
-                                                    </li>
-                                                    <li><a>Settings</a></li>
-                                                    <li><button onClick={handelLogout}>Logout</button></li>
-                                                </ul>
-                                            </div>
-                                        }
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-
+                                        <IoMdClose className="text-3xl"></IoMdClose>
                                     </div>
                                 )}
                             </button>
+                            <div>
+                                {
+                                    user && <div className="dropdown dropdown-end">
+                                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                            <div className="w-10 rounded-full">
+                                                {
+                                                    user?.photoURL && <img
+                                                        src={user.photoURL}
+                                                        className="object-cover w-full h-full"
+                                                        alt="avatar"
+                                                    />
+                                                }
+                                            </div>
+                                        </div>
+                                        <ul tabIndex={0} className="menu ml-10 lg:ml-0 menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                            <li>
+                                                <a className="justify-between">
+                                                    Profile
+                                                </a>
+                                            </li>
+                                            <li><a>Settings</a></li>
+                                            <li><button onClick={handelLogout}>Logout</button></li>
+                                        </ul>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
 
@@ -108,7 +83,7 @@ const Navbar = () => {
                         className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out text-black lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${isOpen ? 'translate-x-0 opacity-100' : 'opacity-0 -translate-x-full'
                             }`}
                     >
-                        <div className="flex flex-col menu -mx-6 lg:flex-row lg:items-center lg:mx-8">
+                        <div className="flex flex-col bg-white md:bg-transparent menu -mx-6 lg:flex-row lg:items-center lg:mx-8">
                             {
                                 navLink
                             }
@@ -161,6 +136,7 @@ const Navbar = () => {
                             </Link>
                         }
                     </div>
+
                 </div>
             </div>
         </nav>
