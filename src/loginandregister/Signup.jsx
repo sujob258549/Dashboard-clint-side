@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CreatAuthContext } from "../Firebase/Authprovider";
 import Swal from "sweetalert2";
 import { IoMdPhotos } from "react-icons/io";
+import UseAxiosPublick from "../CastomHook/UseAxiosPublick";
 
 
 
@@ -18,7 +19,8 @@ import { IoMdPhotos } from "react-icons/io";
 const Signup = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const { creatUser, upadateprofile, setuser, user } = useContext(CreatAuthContext);
+    const { creatUser, upadateprofile, setuser, user, signout } = useContext(CreatAuthContext);
+    const axiosPublick = UseAxiosPublick()
     const handleRegister = async (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -26,6 +28,10 @@ const Signup = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         const cpassword = e.target.cpassword.value;
+        const userType = 'admin'
+        const userInfo = {
+            name, photo, email, password, userType
+        }
         if (password.length < 6) {
             toast.error('Password must be 6 characters or longer!');
             return;
@@ -48,14 +54,21 @@ const Signup = () => {
 
         creatUser(email, password)
             .then(result => {
+                axiosPublick.post('/user', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Success",
+                                text: "User created successfully!",
+                            });
+                        }
+                    })
                 console.log(result);
                 upadateprofile(name, photo)
                 setuser({ ...user, photoURL: photo, displayName: name })
-                Swal.fire({
-                    icon: "success",
-                    title: "Success",
-                    text: "User created successfully!",
-                });
+
+                signout();
                 navigate('/login');
             })
             .catch(error => {
@@ -88,24 +101,24 @@ const Signup = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
                             </span>
-                            <input name="name" type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" required />
+                            <input name="name" type="text" className="block w-full py-3  bg-white border rounded-lg px-11  dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" required />
                         </div>
 
-                    
+
                         <div className="relative flex items-center mt-6">
                             <span className="absolute">
                                 <IoMdPhotos className="ml-3 text-2xl"></IoMdPhotos>
                             </span>
-                            <input name="image" type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Enter Your Photo url" required />
+                            <input name="image" type="text" className="block w-full py-3  bg-white border rounded-lg px-11  dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Enter Your Photo url" required />
                         </div>
-                    
+
                         <div className="relative flex items-center mt-6">
                             <span className="absolute">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
                             </span>
-                            <input name="email" type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" required />
+                            <input name="email" type="email" className="block w-full py-3  bg-white border rounded-lg px-11  dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" required />
                         </div>
 
                         <div className="relative flex items-center mt-4">
