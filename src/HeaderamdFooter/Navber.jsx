@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import shopinglogo from '../assets/image/logo/logo2.webp'
+import shopinglogo from '../assets/image/logo/track.png'
 import { Link, NavLink } from "react-router-dom";
 import './nav.css'
 import { CreatAuthContext } from "../Firebase/Authprovider";
@@ -8,17 +8,22 @@ import { IoMdClose } from "react-icons/io";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+
     const navLink = <>
 
         <NavLink to={'/'}>Home</NavLink>
-        <NavLink>About</NavLink>
-        <NavLink>Contact</NavLink>
+        {/* <NavLink>Contact</NavLink> */}
     </>
 
     const { user, signout } = useContext(CreatAuthContext)
     const handelLogout = () => {
         signout()
     }
+    const sublink = <>
+        <Link to={'/dasbord'} className="btn text-white w-full text-[18px] font-bold  bg-[#16A34A]">Dashboard </Link>
+        <button className="btn text-white w-full text-[18px] font-bold  bg-[#a42c2c]" onClick={handelLogout}>Logout</button>
+
+    </>
     return (
         <nav className="relative bg-white shadow">
             <div className="container px-6 py-4 mx-auto">
@@ -63,14 +68,10 @@ const Navbar = () => {
                                                 }
                                             </div>
                                         </div>
-                                        <ul tabIndex={0} className="menu ml-10 lg:ml-0 menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                            <li>
-                                                <a className="justify-between">
-                                                    Profile
-                                                </a>
-                                            </li>
-                                            <li><a>Settings</a></li>
-                                            <li><button onClick={handelLogout}>Logout</button></li>
+                                        <ul tabIndex={0} className="menu submenu my-10  ml-10  menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                            {
+                                                sublink
+                                            }
                                         </ul>
                                     </div>
                                 }
@@ -110,22 +111,19 @@ const Navbar = () => {
                                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                         <div className="w-10 rounded-full">
                                             {
-                                                user?.photoURL && <img
+                                                user?.photoURL ? <img
                                                     src={user.photoURL}
                                                     className="object-cover w-full h-full"
                                                     alt="avatar"
                                                 />
+                                                    : ""
                                             }
                                         </div>
                                     </div>
-                                    <ul tabIndex={0} className="menu ml-10 lg:ml-0 menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                        <li>
-                                            <a className="justify-between">
-                                                Profile
-                                            </a>
-                                        </li>
-                                        <li><a>Settings</a></li>
-                                        <li><button onClick={handelLogout}>Logout</button></li>
+                                    <ul tabIndex={0} className="flex flex-col gap-3 menu-sm dropdown-content mt-3 z-[1] p-5 shadow bg-base-100 rounded-box w-52">
+                                        {
+                                            sublink
+                                        }
                                     </ul>
                                 </div>
                             }

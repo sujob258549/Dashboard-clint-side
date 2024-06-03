@@ -43,7 +43,6 @@ const Authprovider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setuser(user);
-                console.log(user)
                 // const userEmail = user.email;
                 // const currentUser = { email: userEmail }
 

@@ -28,7 +28,7 @@ const Signup = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         const cpassword = e.target.cpassword.value;
-        const userType = 'admin'
+        const userType = e.target.userType.value
         const userInfo = {
             name, photo, email, password, userType
         }
@@ -120,7 +120,11 @@ const Signup = () => {
                             </span>
                             <input name="email" type="email" className="block w-full py-3  bg-white border rounded-lg px-11  dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" required />
                         </div>
-
+                        <select name="userType" className="select select-bordered w-full mt-5">
+                            <option disabled selected>Select user type</option>
+                            <option value={'user'}>user</option>
+                            <option value={'DeliveryMen'}>DeliveryMen</option>
+                        </select>
                         <div className="relative flex items-center mt-4">
                             <span className="absolute">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

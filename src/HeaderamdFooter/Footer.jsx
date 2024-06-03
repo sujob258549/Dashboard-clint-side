@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import logo from '../assets/image/logo/logo2.webp'
+import logo from '../assets/image/logo/track.png'
 
 const Footer = () => {
     return (

@@ -2,24 +2,16 @@ import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CreatAuthContext } from "../Firebase/Authprovider";
+import Swal from "sweetalert2";
+import UseAxiosPublick from "../CastomHook/UseAxiosPublick";
 
 const Login = () => {
+    const axiosPublic = UseAxiosPublick();
     const { signInUser, logineWithGoogle } = useContext(CreatAuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || '/';
-
-    const handleGoogleSignin = () => {
-        logineWithGoogle()
-            .then(res => {
-                console.log(res);
-                navigate(from, { replace: true });
-            })
-            .catch(error => {
-                console.log(error.message);
-            });
-    }
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -32,9 +24,40 @@ const Login = () => {
                 navigate(from, { replace: true });
             })
             .catch(error => {
-                console.log(error.message);
+                console.error("Login error: ", error.message);
             });
-    }
+    };
+
+    const handleGoogleSignin = () => {
+        logineWithGoogle()
+            .then(res => {
+                const userInfo = {
+                    name: res.user.displayName,
+                    photo: res.user.photoURL,
+                    email: res.user.email,
+                    password: '',
+                    userType: "user"
+                };
+
+                axiosPublic.post('/user', userInfo)
+                    .then(result => {
+                        if (result.data.insertedId) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Success",
+                                text: "User created successfully!",
+                            });
+                        }
+                        navigate(from, { replace: true });
+                    })
+                    .catch(error => {
+                        console.error("Error creating user: ", error.message);
+                    });
+            })
+            .catch(error => {
+                console.error("Google sign-in error: ", error.message);
+            });
+    };
 
 
 
