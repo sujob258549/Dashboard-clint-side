@@ -37,6 +37,7 @@ const Authprovider = ({ children }) => {
         return signInWithPopup(auth, githubprovider)
 
     }
+    console.log(user);
 
 
     useEffect(() => {

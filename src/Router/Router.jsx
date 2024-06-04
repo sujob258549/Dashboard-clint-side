@@ -4,31 +4,39 @@ import Home from "../Home/Home";
 import Login from "../loginandregister/Login";
 import Signup from "../loginandregister/Signup";
 import Userdasbord from "../Dasbord/Userdasbord";
+import BookParsel from "../Dasbord/UserAllDasbord/BookParsel";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
-        children:[
+        children: [
             {
-                path:'/',
-                element:<Home></Home>
+                path: '/',
+                element: <Home></Home>
             },
             {
-                path:'/login',
-                element:<Login></Login>
+                path: '/login',
+                element: <Login></Login>
             },
             {
-                path:'/signup',
-                element:<Signup></Signup>
+                path: '/signup',
+                element: <Signup></Signup>
             },
             {
-                path:'/dasbord',
-                element:<Userdasbord></Userdasbord>
+                path: '/dasbord',
+                element: <Userdasbord></Userdasbord>,
+                children: [
+                    {
+                        path: 'userbookingparsel',
+                        element: <BookParsel></BookParsel>
+                    }
+                ]
             }
+
         ]
 
-        
+
 
     }
 ])
