@@ -1,12 +1,20 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { CreatAuthContext } from './../../Firebase/Authprovider';
+import UseAxiosPublick from './../../CastomHook/UseAxiosPublick';
+import Swal from "sweetalert2";
+
 
 const BookParsel = () => {
     const { user } = useContext(CreatAuthContext);
+    const axiosPublick = UseAxiosPublick()
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const status = {
+        status: "pending",
+        date: new Date()
+    }
     const onSubmit = data => {
-        const productInfi = {
+        const productInfo = {
             name: data.name,
             email: data.email,
             phone: data.phone,
@@ -18,11 +26,39 @@ const BookParsel = () => {
             requestedDeliveryDate: data.requestedDeliveryDate,
             deliveryAddressLatitude: data.deliveryAddressLatitude,
             deliveryAddressLongitude: data.deliveryAddressLongitude,
-            dalivaryprice: parseFloat(data.parcelWeight * 50)
-
+            deliveryPrice: parseFloat(data.parcelWeight * 50) // Corrected variable name
         }
-        console.log(productInfi);
+
+        console.log(productInfo, status);
+        const prosuctAllInfo = {
+            productInfo, status
+        }
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes,  Ok!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosPublick.post('/priductinfo', prosuctAllInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Success",
+                                text: "User created successfully!",
+                            });
+                        }
+                    })
+            }
+        });
+
     };
+
 
     return (
         <div>
@@ -38,7 +74,8 @@ const BookParsel = () => {
                                 className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
                                 placeholder="Name *"
                                 readOnly
-                                value={user.displayName}
+                                // value={user.displayName}
+                                value={user?.displayName || ""}
                                 name="name"
                                 {...register("name", { required: true })}
                             />

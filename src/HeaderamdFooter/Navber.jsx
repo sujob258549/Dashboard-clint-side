@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import shopinglogo from '../assets/image/logo/track.png'
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import './nav.css'
 import { CreatAuthContext } from "../Firebase/Authprovider";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 
 const Navbar = () => {
+    const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false);
 
     const navLink = <>
@@ -18,6 +19,7 @@ const Navbar = () => {
     const { user, signout } = useContext(CreatAuthContext)
     const handelLogout = () => {
         signout()
+        navigate('/login')
     }
     const sublink = <>
         <Link to={'/dasbord'} className="btn text-white w-full text-[18px] font-bold  bg-[#16A34A]">Dashboard </Link>

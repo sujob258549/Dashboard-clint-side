@@ -37,13 +37,10 @@ const Authprovider = ({ children }) => {
         return signInWithPopup(auth, githubprovider)
 
     }
-    console.log(user);
-
-
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setuser(user);
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                setuser(currentUser);
                 // const userEmail = user.email;
                 // const currentUser = { email: userEmail }
 
