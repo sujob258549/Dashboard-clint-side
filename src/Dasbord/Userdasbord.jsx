@@ -68,7 +68,7 @@ const Userdasbord = () => {
                         }
                         {
                             user && deliveryman && <>
-                                <Link href="#" className="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
+                                <Link to={'mylest'} href="#" className="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
                                     <FaRegStar className="mr-2"></FaRegStar>  My Delivery List
                                 </Link>
                                 <Link to={'myreviews'} href="#" className="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">

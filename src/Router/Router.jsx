@@ -13,6 +13,7 @@ import MyReviews from "../Dasbord/Dalivariman/MyReviews";
 import Alluser from "../Dasbord/UserAllDasbord/AdminDasbord/Alluser";
 import AllDalivariman from "../Dasbord/UserAllDasbord/AdminDasbord/AllDalivariman";
 import UpdateParsel from "../Dasbord/UserAllDasbord/UpdateParsel";
+import Mylist from "../Dasbord/Dalivariman/Mylist";
 
 
 const router = createBrowserRouter([
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
                     {
                         path: 'alldalivariman',
                         element: <AllDalivariman></AllDalivariman>
+                    },
+                    {
+                        path: 'mylest',
+                        element: <Mylist></Mylist>
                     },
                     {
                         path: 'myparsel/update/:id',

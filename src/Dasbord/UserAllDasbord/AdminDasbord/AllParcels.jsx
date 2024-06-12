@@ -5,9 +5,22 @@ import UseAxiosPublick from '../../../CastomHook/UseAxiosPublick';
 import React from 'react';
 import Modal from 'react-modal';
 
-const AllParcels = () => {
 
-    const [subid, setSubid] = useState();
+
+
+
+const AllParcels = () => {
+const axiosPublick = UseAxiosPublick()
+const [dalivariman , setdalivariman] = useState([])
+
+
+useEffect(()=>{
+    axiosPublick.get('/alldalivariman')
+    .then(res =>{
+        setdalivariman(res?.data)
+    })
+},[axiosPublick])
+
     const customStyles = {
         content: {
             top: '50%',
@@ -39,26 +52,40 @@ const AllParcels = () => {
 
     const axiousPublick = UseAxiosPublick();
     const [productInfo, setProdictInfo] = useState([])
+    const [id, setId] = useState('')
     useEffect(() => {
-        axiousPublick.get('/priductinfo')
+        axiousPublick.get('/productinfo')
             .then(res => {
                 console.log(res?.data);
                 setProdictInfo(res?.data)
             })
-    }, [])
+    }, [axiousPublick])
 
     const status = {
         status: "On The Way"
     }
 
-    const handeldalivariman = (e, subid) => {
+
+    const handeldalivariman = e => {
         e.preventDefault();
         const delivarimanid = e.target.dman.value;
         const approximateDeliveryDate = e.target.date.value;
         const productUpdatedate = { delivarimanid, approximateDeliveryDate };
         const allupdadeData = { productUpdatedate, status };
-        axiousPublick.patch(`/priductinfo/${subid}`, allupdadeData);
+        axiousPublick.patch(`/updateproductinfo/${id}`, allupdadeData)
+            .then(res => {
+                console.log(res?.data);
+                // navigate('alldalivariman')
+            })
+
     };
+
+
+    const openUpdateModal = (productId) => {
+        setId(productId)
+        openModal()
+    }
+
 
     console.log(productInfo);
     return (
@@ -83,9 +110,12 @@ const AllParcels = () => {
                                     <div className="">
                                         <select name='dman' className="select select-bordered w-full ">
                                             <option disabled selected>select dalivary man id</option>
-                                            <option>01</option>
-                                            <option>02</option>
-                                            <option>03</option>
+                                           {
+                                            dalivariman.map(d =>(
+                                                <option key={d._id}>{d.email}</option>
+                                            ))
+                                           }
+                                            
                                         </select>
                                         <input name="date" type="date" className="mt-5 input  input-bordered w-full" />
                                     </div>
@@ -97,9 +127,6 @@ const AllParcels = () => {
                         </div>
 
                     </Modal>
-
-
-
 
                     <div className="flex items-center gap-x-3">
                         <h2 className="text-lg font-medium text-black">All Order</h2>
@@ -174,12 +201,12 @@ const AllParcels = () => {
                                                 productInfo.map(product => (
                                                     <tr key={product._id}>
                                                         <td className="px-4 py-4 text-sm whitespace-nowrap">{product.productInfo.name}</td>
-                                                        <td className="px-4 py-4 text-sm whitespace-nowrap">Design Director</td>
+                                                        <td className="px-4 py-4 text-sm whitespace-nowrap">{product.status.number}</td>
                                                         <td className="px-4 text-center py-4 text-sm whitespace-nowrap">{product.productInfo.phone}</td>
                                                         <td className="px-4 py-4 text-sm whitespace-nowrap text-center">{product.productInfo.requestedDeliveryDate}</td>
                                                         <td className="px-4 py-4 text-sm whitespace-nowrap"><p className={product.status.status === 'panding' ? "bg-green-200 text-red-600 px-3 py-1 rounded-md" : "bg-green-200 text-green-900-600 px-3 py-1 rounded-md"}>{product.status.status}</p></td>
                                                         <td className="px-4 py-4 text-sm whitespace-nowrap">10</td>
-                                                        <td className="px-4 py-4 text-sm whitespace-nowrap"> <button onClick={() => { openModal(); setSubid(product._id); }} className="btn bg-green-600 text-white">Manage Button</button></td>
+                                                        <td className="px-4 py-4 text-sm whitespace-nowrap"> <button onClick={() => { openUpdateModal(product._id) }} className="btn bg-green-600 text-white">Manage Button</button></td>
                                                     </tr>
                                                 ))
                                             }

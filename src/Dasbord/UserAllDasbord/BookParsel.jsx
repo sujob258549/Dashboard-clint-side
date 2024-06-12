@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CreatAuthContext } from './../../Firebase/Authprovider';
 import UseAxiosPublick from './../../CastomHook/UseAxiosPublick';
@@ -7,11 +7,20 @@ import Swal from "sweetalert2";
 
 const BookParsel = () => {
     const { user } = useContext(CreatAuthContext);
+    const [number, setNumber] = useState('');
+    console.log(number.number);
+    useEffect(()=>{
+        axiosPublick.get(`/soicifaiUser/${user.email}`)
+        .then(res => {
+            setNumber(res?.data)
+        })
+    },[])
     const axiosPublick = UseAxiosPublick()
     const { register, handleSubmit, formState: { errors } } = useForm();
     const status = {
         status: "pending",
-        date: new Date()
+        date: new Date(),
+        number :number.number
     }
     const onSubmit = data => {
         const productInfo = {

@@ -1,19 +1,22 @@
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import UseAxiosPublick from './../../CastomHook/UseAxiosPublick';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import { CreatAuthContext } from '../../Firebase/Authprovider';
+import UseSpicifayProduct from '../../CastomHook/UseSpicifayProduct';
 const Myparsel = () => {
     const axiousPublick = UseAxiosPublick();
+    const [spicifyproductinfo] = UseSpicifayProduct()
+    console.log(spicifyproductinfo);
+    const {user} = useContext(CreatAuthContext)
     const [productInfo, setProdictInfo] = useState([])
     useEffect(() => {
-        axiousPublick.get('/priductinfo')
+        axiousPublick.get(`/spicifyproductinfo/${user?.email}`)
             .then(res => {
                 setProdictInfo(res?.data)
             })
     }, [])
-    console.log(productInfo);
     return (
         <div>
             <section className="container px-4 mx-auto">
@@ -97,18 +100,18 @@ const Myparsel = () => {
                                         <tbody className="bg-white divide-y divide-gray-200 ">
                                             {
                                                 productInfo.map(product => (
-                                                    <tr key={product._id}>
+                                                    <tr key={product?._id}>
                                                        
                                                     
-                                                        <td className="px-4 py-4 text-sm whitespace-nowrap">{product.productInfo.parcelType}</td>
-                                                        <td className="px-4 py-4 text-sm whitespace-nowrap">{product.productInfo.requestedDeliveryDate}</td>
+                                                        <td className="px-4 py-4 text-sm whitespace-nowrap">{product?.productInfo?.parcelType}</td>
+                                                        <td className="px-4 py-4 text-sm whitespace-nowrap">{product?.productInfo?.requestedDeliveryDate}</td>
                                                         <td className="px-4 py-4 text-sm whitespace-nowrap">Design Director</td>
-                                                        <td className="px-4 py-4 text-sm whitespace-nowrap">{product.status.date.slice(0, 10)}</td>
+                                                        <td className="px-4 py-4 text-sm whitespace-nowrap">{product?.status?.date?.slice(0, 10)}</td>
                                                         <td className="px-4 py-4 text-sm whitespace-nowrap">10</td>
                                                         <td className="px-4 py-4 text-sm font-medium  whitespace-nowrap">
                                                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 ">
                                                                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                                                                <h2 className="text-sm font-normal text-emerald-500">{product.status.status}</h2>
+                                                                <h2 className="text-sm font-normal text-emerald-500">{product?.status?.status}</h2>
                                                             </div>
                                                         </td>
                                                         <td className="px-4 py-4 text-sm whitespace-nowrap"><button className="btn bg-yellow-600 text-white">Review</button></td>

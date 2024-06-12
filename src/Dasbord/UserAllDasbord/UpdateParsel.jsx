@@ -47,7 +47,7 @@ const UpdateParcel = () => {
             confirmButtonText: "Yes, Ok!",
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`${import.meta.env.VITE_backend_url}/priductinfo/${data._id}`, productAllInfo)
+                axios.put(`${import.meta.env.VITE_bakend_url}/productinfo/${data._id}`, productAllInfo)
                     .then((res) => {
                         if (res.data.modifiedCount) {
                             Swal.fire({
@@ -68,11 +68,10 @@ const UpdateParcel = () => {
             }
         });
     };
-
+console.log(import.meta.env.VITE_bakend_url);
     return (
         <div className="mx-14 mt-10 border-2 border-blue-400 rounded-lg">
-            <div className="mt-10 text-center font-bold">Contact Us</div>
-            <div className="mt-3 text-center text-4xl font-bold">Make an Appointment</div>
+            <div className="mt-3 text-center text-4xl font-bold">Update Form</div>
             <form onSubmit={handleSubmit(onSubmit)} className="p-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
                     <div>
@@ -207,7 +206,7 @@ const UpdateParcel = () => {
                 </div>
                 <div className="text-center">
                     <button className="cursor-pointer rounded-lg bg-blue-700 px-8 py-5 text-sm font-semibold text-white">
-                        Book Appointment
+                       Update Booking
                     </button>
                 </div>
             </form>

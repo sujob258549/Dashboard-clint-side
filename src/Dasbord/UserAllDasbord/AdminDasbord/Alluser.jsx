@@ -36,7 +36,7 @@ const Alluser = () => {
                         <tr key={user._id}>
                             <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
-                            <td className="px-6 py-4 whitespace-nowrap"></td>
+                            <td className="px-6 py-4 whitespace-nowrap">{user.number}</td>
                             <td className="px-6 py-4 whitespace-nowrap"></td>
                             <td className="px-6 py-4 whitespace-nowrap"></td>
                             <td className="px-6 py-4 whitespace-nowrap">

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import UseAxiosPublick from "../../../CastomHook/UseAxiosPublick";
+import UseDalevariman from "../../../CastomHook/UseDalevariman";
 
 
 const AllDalivariman = () => {
+    const [deliveryman] = UseDalevariman()
+    console.log(deliveryman);
     const axiospublick = UseAxiosPublick();
     const [deliveryMen, setdeliveryMen] = useState([]);
 
@@ -33,7 +36,7 @@ const AllDalivariman = () => {
                     {deliveryMen.map((deliveryMan) => (
                         <tr key={deliveryMan._id}>
                             <td className="px-6 py-4 whitespace-nowrap">{deliveryMan.name}</td>
-                            <td className="px-6 py-4 whitespace-nowrap"></td>
+                            <td className="px-6 py-4 whitespace-nowrap">{deliveryMan.number}</td>
                             <td className="px-6 py-4 whitespace-nowrap"></td>
                             <td className="px-6 py-4 whitespace-nowrap"></td>
                             <td className="px-6 py-4 whitespace-nowrap">

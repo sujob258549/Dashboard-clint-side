@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaPhone, FaPhoneAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import logopng from '../assets/image/register/logopng register.png';
 import './loginandregister.css';
@@ -29,8 +29,9 @@ const Signup = () => {
         const password = e.target.password.value;
         const cpassword = e.target.cpassword.value;
         const userType = e.target.userType.value
+        const number = e.target.number.value
         const userInfo = {
-            name, photo, email, password, userType
+            name,number, photo, email, password, userType
         }
         if (password.length < 6) {
             toast.error('Password must be 6 characters or longer!');
@@ -105,6 +106,12 @@ const Signup = () => {
                         </div>
 
 
+                        <div className="relative flex items-center mt-6">
+                            <span className="absolute">
+                                <FaPhoneAlt className="ml-3 text-2xl"></FaPhoneAlt>
+                            </span>
+                            <input name="number" type="number" className="block w-full py-3  bg-white border rounded-lg px-11  dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Enter Your Phone Number" required />
+                        </div>
                         <div className="relative flex items-center mt-6">
                             <span className="absolute">
                                 <IoMdPhotos className="ml-3 text-2xl"></IoMdPhotos>
