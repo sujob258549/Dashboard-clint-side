@@ -8,15 +8,21 @@ import { IoMdClose } from "react-icons/io";
 
 const Navbar = () => {
     const navigate = useNavigate()
+    const { user, signout } = useContext(CreatAuthContext)
     const [isOpen, setIsOpen] = useState(false);
 
     const navLink = <>
 
         <NavLink to={'/'}>Home</NavLink>
+        {
+            user && <>
+                 <NavLink to={'/dasbord'}>Dasbord</NavLink>
+            </>
+        }
         {/* <NavLink>Contact</NavLink> */}
     </>
 
-    const { user, signout } = useContext(CreatAuthContext)
+
     const handelLogout = () => {
         signout()
         navigate('/login')

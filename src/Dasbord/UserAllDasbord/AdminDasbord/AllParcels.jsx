@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import UseAxiosPublick from '../../../CastomHook/UseAxiosPublick';
 import React from 'react';
 import Modal from 'react-modal';
+import Swal from 'sweetalert2';
 
 
 
@@ -75,7 +76,13 @@ useEffect(()=>{
         axiousPublick.patch(`/updateproductinfo/${id}`, allupdadeData)
             .then(res => {
                 console.log(res?.data);
-                // navigate('alldalivariman')
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Status delevared success",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             })
 
     };

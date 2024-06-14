@@ -37,7 +37,7 @@ const AllDalivariman = () => {
                         <tr key={deliveryMan._id}>
                             <td className="px-6 py-4 whitespace-nowrap">{deliveryMan.name}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{deliveryMan.number}</td>
-                            <td className="px-6 py-4 whitespace-nowrap"></td>
+                            <td className="px-6 py-4 whitespace-nowrap">{deliveryMan.delevary}</td>
                             <td className="px-6 py-4 whitespace-nowrap"></td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               

@@ -25,7 +25,7 @@ const Userdasbord = () => {
                     <nav className=" flex md:flex-col flex-row flex-wrap justify-center px-2 py-4 bg-gray-800">
                         {
                             user && isUser && <>
-                                <Link to={''} className="flex items-center px-4 py-2 text-gray-100 hover:bg-gray-700">
+                                <Link to={'bookparsel'} className="flex items-center px-4 py-2 text-gray-100 hover:bg-gray-700">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         className="h-6 w-6 mr-2"

@@ -38,7 +38,7 @@ const router = createBrowserRouter([
                 element: <Userdasbord></Userdasbord>,
                 children: [
                     {
-                        path: '',
+                        path: 'bookparsel',
                         element: <BookParsel></BookParsel>
                     },
                     {

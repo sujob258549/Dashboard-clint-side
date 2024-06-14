@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { CreatAuthContext } from './../../Firebase/Authprovider';
 import Swal from "sweetalert2";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const UpdateParcel = () => {
@@ -56,6 +56,7 @@ const UpdateParcel = () => {
                                 text: "Parcel updated successfully!",
                             });
                         }
+                       
                     })
                     .catch((error) => {
                         Swal.fire({
